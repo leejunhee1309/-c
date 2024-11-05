@@ -1,0 +1,28 @@
+#include <stdio.h>
+int main(void)
+{
+	int A;
+	int B;
+	int i;
+	int C, D, E;
+	int F = 0;
+
+	scanf_s("%d \n", &A);
+	scanf_s("%d \n", &B);
+
+	for (i = 0; i < B; ++i)
+	{
+		scanf_s("%d %d", &C, &D);
+		E = C * D;
+		F = F + E;
+	}
+
+	if (F == A)
+	{
+		printf("Yes");
+	}
+	else
+		printf("No");
+
+	return 0;
+}
