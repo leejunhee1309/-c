@@ -1,0 +1,18 @@
+#include <stdio.h>
+int main(void)
+{
+	int A;
+	int i;
+	int B;
+
+	scanf_s("%d", &A);
+
+	for (i = 1; i <= 9; ++i)
+	{
+		B = A * i;
+		printf("%d * %d = %d \n", A, i, B);
+
+	}
+
+	return 0;
+}
