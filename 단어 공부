@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int main() {
+    char word[1000001]; 
+    int count[26] = { 0 }; 
+    int max_count = 0; 
+    char result = '?'; 
+    int i;
+
+   
+    scanf("%s", word);
+
+  
+    for (i = 0; word[i] != '\0'; i++)
+    {
+        char ch = toupper(word[i]); 
+        count[ch - 'A']++; 
+    }
+
+   
+    for (i = 0; i < 26; i++) 
+    {
+        if (count[i] > max_count)
+        {
+            max_count = count[i];
+            result = 'A' + i; 
+        }
+        else if (count[i] == max_count)
+        {
+            result = '?'; 
+        }
+    }
+
+    printf("%c\n", result);
+    return 0;
+}
