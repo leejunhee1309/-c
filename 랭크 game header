@@ -1,0 +1,16 @@
+#ifndef GAME_H
+#define GAME_H
+
+#define MAX_ROOMS 310
+#define MAX_PLAYERS 100
+
+extern char names[MAX_ROOMS][MAX_PLAYERS][21];
+extern int levels[MAX_ROOMS][MAX_PLAYERS];
+extern int room_sizes[MAX_ROOMS];
+extern int room_count;
+
+void assign_to_room(int level, char* name, int m);
+void sort_players_in_room(int room_index);
+void print_room_status(int room_index, int m);
+
+#endif
