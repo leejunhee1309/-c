@@ -1,0 +1,71 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+
+#define MAX_ROOMS 310
+#define MAX_PLAYERS 100
+
+int main() {
+    int p, m;
+    scanf("%d %d", &p, &m);
+
+    char names[MAX_ROOMS][MAX_PLAYERS][21];
+    int levels[MAX_ROOMS][MAX_PLAYERS];
+    int room_sizes[MAX_ROOMS] = { 0 };
+    int room_count = 0;
+
+    for (int i = 0; i < p; i++) {
+        int level;
+        char name[21];
+        scanf("%d %s", &level, name);
+
+        int assigned = 0;
+        for (int j = 0; j < room_count; j++) {
+            if (room_sizes[j] < m && abs(levels[j][0] - level) <= 10) {
+                levels[j][room_sizes[j]] = level;
+                strcpy(names[j][room_sizes[j]], name);
+                room_sizes[j]++;
+                assigned = 1;
+                break;
+            }
+        }
+
+        if (!assigned) {
+            levels[room_count][0] = level;
+            strcpy(names[room_count][0], name);
+            room_sizes[room_count] = 1;
+            room_count++;
+        }
+    }
+
+    for (int i = 0; i < room_count; i++) {
+        if (room_sizes[i] == m) {
+            printf("Started!\n");
+        }
+        else {
+            printf("Waiting!\n");
+        }
+
+        for (int j = 0; j < room_sizes[i] - 1; j++) {
+            for (int k = 0; k < room_sizes[i] - 1 - j; k++) {
+                if (strcmp(names[i][k], names[i][k + 1]) > 0) {
+                    char temp_name[21];
+                    strcpy(temp_name, names[i][k]);
+                    strcpy(names[i][k], names[i][k + 1]);
+                    strcpy(names[i][k + 1], temp_name);
+
+                    int temp_level = levels[i][k];
+                    levels[i][k] = levels[i][k + 1];
+                    levels[i][k + 1] = temp_level;
+                }
+            }
+        }
+
+        for (int j = 0; j < room_sizes[i]; j++) {
+            printf("%d %s\n", levels[i][j], names[i][j]);
+        }
+    }
+
+    return 0;
+}
