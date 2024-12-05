@@ -1,0 +1,61 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <math.h>
+#include "game.h"
+
+char names[MAX_ROOMS][MAX_PLAYERS][21];
+int levels[MAX_ROOMS][MAX_PLAYERS];
+int room_sizes[MAX_ROOMS] = { 0 };
+int room_count = 0;
+
+void assign_to_room(int level, char* name, int m) {
+    int assigned = 0;
+
+    for (int i = 0; i < room_count; i++) {
+        if (room_sizes[i] < m && abs(levels[i][0] - level) <= 10) {
+            levels[i][room_sizes[i]] = level;
+            strcpy(names[i][room_sizes[i]], name);
+            room_sizes[i]++;
+            assigned = 1;
+            break;
+        }
+    }
+
+    if (!assigned) {
+        levels[room_count][0] = level;
+        strcpy(names[room_count][0], name);
+        room_sizes[room_count] = 1;
+        room_count++;
+    }
+}
+
+void sort_players_in_room(int room_index) {
+    for (int j = 0; j < room_sizes[room_index] - 1; j++) {
+        for (int k = 0; k < room_sizes[room_index] - 1 - j; k++) {
+            if (strcmp(names[room_index][k], names[room_index][k + 1]) > 0) {
+                char temp_name[21];
+                strcpy(temp_name, names[room_index][k]);
+                strcpy(names[room_index][k], names[room_index][k + 1]);
+                strcpy(names[room_index][k + 1], temp_name);
+
+                int temp_level = levels[room_index][k];
+                levels[room_index][k] = levels[room_index][k + 1];
+                levels[room_index][k + 1] = temp_level;
+            }
+        }
+    }
+}
+
+void print_room_status(int room_index, int m) {
+    if (room_sizes[room_index] == m) {
+        printf("Started!\n");
+    }
+    else {
+        printf("Waiting!\n");
+    }
+
+    for (int j = 0; j < room_sizes[room_index]; j++) {
+        printf("%d %s\n", levels[room_index][j], names[room_index][j]);
+    }
+}
