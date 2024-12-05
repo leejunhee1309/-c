@@ -1,0 +1,21 @@
+#include <stdio.h>
+#include "game.h"
+
+int main() {
+    int p, m;
+    scanf("%d %d", &p, &m);
+
+    for (int i = 0; i < p; i++) {
+        int level;
+        char name[21];
+        scanf("%d %s", &level, name);
+        assign_to_room(level, name, m);
+    }
+
+    for (int i = 0; i < room_count; i++) {
+        sort_players_in_room(i);
+        print_room_status(i, m);
+    }
+
+    return 0;
+}
