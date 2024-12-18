@@ -7,8 +7,8 @@ int main(void)
 	int C, D, E;
 	int F = 0;
 
-	scanf_s("%d \n", &A);
-	scanf_s("%d \n", &B);
+	scanf("%d \n", &A);
+	scanf("%d \n", &B);
 
 	for (i = 0; i < B; ++i)
 	{
