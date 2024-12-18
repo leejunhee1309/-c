@@ -5,7 +5,7 @@ int main(void)
 	int i;
 	int B=0;
 
-	scanf_s("%d", &A);
+	scanf("%d", &A);
 
 	for (i = 1; i <= A; ++i)
 	{
